@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>so.hum — Herramientas reales para mentes que no se apagan solas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #5E7C7B;
+    --verde-dark: #4a6362;
+    --terracota: #D9A38F;
+    --marfil: #F7F3EE;
+    --gris-profundo: #2E2E2E;
+    --gris-suave: #8C8C8C;
+    --marfil-oscuro: #EDE8E1;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--marfil);
+    color: var(--gris-profundo);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.4rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(247,243,238,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(94,124,123,0.1);
+    transition: all 0.4s ease;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--verde);
+    text-decoration: none;
+  }
+
+  .logo span {
+    color: var(--terracota);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gris-suave);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--verde); }
+
+  .nav-cta {
+    background: var(--verde) !important;
+    color: var(--marfil) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2rem;
+    font-size: 0.78rem !important;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--verde-dark) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 5% 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 55vw;
+    height: 90vh;
+    background: radial-gradient(ellipse, rgba(217,163,143,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 40vw;
+    height: 50vh;
+    background: radial-gradient(ellipse, rgba(94,124,123,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--terracota);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.12;
+    color: var(--gris-profundo);
+    margin-bottom: 1.6rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--verde);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gris-suave);
+    max-width: 440px;
+    margin-bottom: 2.8rem;
+  }
+
+  .hero-sub strong {
+    color: var(--gris-profundo);
+    font-weight: 400;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--verde);
+    color: var(--marfil);
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--verde-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(94,124,123,0.25);
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--verde);
+    padding: 1rem 2.2rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1.5px solid var(--verde);
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(94,124,123,0.06);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hero-note {
+    margin-top: 1.4rem;
+    font-size: 0.75rem;
+    color: var(--gris-suave);
+    letter-spacing: 0.02em;
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .hero-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 40px rgba(46,46,46,0.07);
+    position: relative;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 30px;
+    right: 30px;
+    height: 8px;
+    background: var(--terracota);
+    border-radius: 8px 8px 0 0;
+    opacity: 0.7;
+  }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 1.2rem;
+  }
+
+  .card-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--gris-profundo);
+    margin-bottom: 2rem;
+    border-left: 2px solid var(--terracota);
+    padding-left: 1.2rem;
+  }
+
+  .card-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .card-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--gris-profundo);
+    line-height: 1.5;
+  }
+
+  .card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--verde);
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .card-tag {
+    display: inline-block;
+    margin-top: 1.8rem;
+    background: var(--marfil);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.72rem;
+    color: var(--gris-suave);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── DOLOR SECTION ─── */
+  .dolor {
+    padding: 6rem 5%;
+    background: var(--marfil-oscuro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dolor::before {
+    content: '"';
+    position: absolute;
+    top: -2rem;
+    left: 3%;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20rem;
+    color: rgba(94,124,123,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 1rem;
+  }
+
+  .dolor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .dolor h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    color: var(--gris-profundo);
+  }
+
+  .dolor h2 em {
+    font-style: italic;
+    color: var(--verde);
+  }
+
+  .dolor p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--gris-suave);
+    margin-bottom: 1rem;
+  }
+
+  .dolor p strong {
+    color: var(--gris-profundo);
+    font-weight: 400;
+  }
+
+  .dolor-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dolor-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.4rem 1.6rem;
+    border-left: 3px solid var(--terracota);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--gris-profundo);
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.5s ease;
+  }
+
+  .dolor-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ─── SOLUCIÓN ─── */
+  .solucion {
+    padding: 7rem 5%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .solucion h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+    color: var(--gris-profundo);
+  }
+
+  .solucion h2 em {
+    font-style: italic;
+    color: var(--verde);
+  }
+
+  .solucion-sub {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gris-suave);
+    max-width: 580px;
+    margin: 0 auto 4rem;
+  }
+
+  .pillares {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    text-align: left;
+  }
+
+  .pilar {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .pilar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(94,124,123,0.12);
+  }
+
+  .pilar-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .pilar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin-bottom: 0.6rem;
+  }
+
+  .pilar p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--gris-suave);
+  }
+
+  /* ─── KIT / PRODUCTO ─── */
+  .producto {
+    padding: 7rem 5%;
+    background: var(--verde);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .producto::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 50vw;
+    height: 120%;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .producto-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .producto .section-label {
+    color: var(--terracota);
+  }
+
+  .producto h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--marfil);
+    margin-bottom: 1rem;
+  }
+
+  .producto-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(247,243,238,0.7);
+    margin-bottom: 2rem;
+  }
+
+  .producto-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .include-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.88rem;
+    color: var(--marfil);
+  }
+
+  .include-check {
+    width: 20px;
+    height: 20px;
+    background: rgba(217,163,143,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--terracota);
+    font-size: 0.7rem;
+  }
+
+  .producto-price-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .price-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(247,243,238,0.5);
+    margin-bottom: 0.8rem;
+  }
+
+  .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    color: var(--marfil);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .price sup {
+    font-size: 1.8rem;
+    vertical-align: super;
+  }
+
+  .price-note {
+    font-size: 0.78rem;
+    color: var(--terracota);
+    margin-bottom: 2rem;
+  }
+
+  .btn-light {
+    display: block;
+    background: var(--marfil);
+    color: var(--verde);
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .btn-light:hover {
+    background: var(--marfil-oscuro);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    display: block;
+    background: transparent;
+    color: rgba(247,243,238,0.6);
+    padding: 0.7rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.82rem;
+    text-decoration: none;
+    text-align: center;
+    transition: color 0.3s;
+    border: 1px solid rgba(247,243,238,0.2);
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .btn-ghost:hover { color: var(--marfil); }
+
+  .price-disclaimer {
+    margin-top: 1.2rem;
+    font-size: 0.7rem;
+    color: rgba(247,243,238,0.35);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ─── PARA QUIEN ─── */
+  .para-quien {
+    padding: 7rem 5%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .para-quien-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .para-quien h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--gris-profundo);
+  }
+
+  .para-quien h2 em {
+    font-style: italic;
+    color: var(--verde);
+  }
+
+  .reconocimiento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .reconocimiento {
+    background: var(--marfil-oscuro);
+    border-radius: 1rem;
+    padding: 1.6rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: background 0.3s;
+  }
+
+  .reconocimiento:hover {
+    background: #e8e0d6;
+  }
+
+  .rec-emoji {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .rec-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gris-profundo);
+  }
+
+  .no-es {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 1.5rem;
+    text-align: center;
+  }
+
+  .no-es h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--gris-profundo);
+    margin-bottom: 1.5rem;
+  }
+
+  .no-es-tags {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tag-no {
+    background: #FDE8E8;
+    color: #a05555;
+    padding: 0.45rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    text-decoration: line-through;
+    text-decoration-color: #c07070;
+  }
+
+  .tag-si {
+    background: rgba(94,124,123,0.1);
+    color: var(--verde);
+    padding: 0.45rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+  }
+
+  /* ─── LISTA ESPERA ─── */
+  .espera {
+    padding: 7rem 5%;
+    background: var(--marfil-oscuro);
+  }
+
+  .espera-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .espera h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--gris-profundo);
+    margin-bottom: 1rem;
+  }
+
+  .espera h2 em {
+    font-style: italic;
+    color: var(--terracota);
+  }
+
+  .espera p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gris-suave);
+    margin-bottom: 2.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    gap: 0.8rem;
+    max-width: 480px;
+    margin: 0 auto 1rem;
+  }
+
+  .form-input {
+    flex: 1;
+    padding: 0.9rem 1.4rem;
+    border: 1.5px solid rgba(94,124,123,0.2);
+    border-radius: 3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: white;
+    color: var(--gris-profundo);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-input:focus {
+    border-color: var(--verde);
+  }
+
+  .form-input::placeholder {
+    color: var(--gris-suave);
+  }
+
+  .form-note {
+    font-size: 0.72rem;
+    color: var(--gris-suave);
+    text-align: center;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem 5%;
+    border-top: 1px solid rgba(94,124,123,0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--verde);
+    text-decoration: none;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--gris-suave);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--verde); }
+
+  .footer-note {
+    font-size: 0.72rem;
+    color: var(--gris-suave);
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(94,124,123,0.08);
+    line-height: 1.6;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 6rem 5% 3rem; }
+    .hero-visual { display: none; }
+    .dolor-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pillares { grid-template-columns: 1fr; }
+    .producto-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .reconocimiento-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .form-group { flex-direction: column; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">so<span>.</span>hum</a>
+  <ul class="nav-links">
+    <li><a href="#para-quien">¿Es para mí?</a></li>
+    <li><a href="#producto">Modo Calma</a></li>
+    <li><a href="#espera" class="nav-cta">Quiero acceso anticipado</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Regulación emocional basada en evidencia</p>
+    <h1>Para los que ya leyeron<br>todo sobre ansiedad<br>y <em>siguen igual.</em></h1>
+    <p class="hero-sub">
+      so.hum no vende mindfulness genérico ni positivismo forzado.<br>
+      Vende <strong>herramientas reales</strong> para mentes que no se apagan solas.
+    </p>
+    <div class="hero-buttons">
+      <a href="#espera" class="btn-primary">Quiero acceso anticipado</a>
+      <a href="#para-quien" class="btn-secondary">¿Es para mí?</a>
+    </div>
+    <p class="hero-note">Sin compromisos. Sin spam. Sin espiritualidad obligatoria.</p>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <p class="card-label">Modo Calma — Kit de Regulación</p>
+      <p class="card-quote">"No sé cómo calmar mi mente cuando estoy sobrepasada."</p>
+      <div class="card-items">
+        <div class="card-item">
+          <div class="card-dot"></div>
+          <span>PDF guiado de 25 páginas con herramientas aplicables hoy</span>
+        </div>
+        <div class="card-item">
+          <div class="card-dot"></div>
+          <span>3 audios de regulación para momentos de sobrecarga real</span>
+        </div>
+        <div class="card-item">
+          <div class="card-dot"></div>
+          <span>Ritual diario de 5 minutos para días mentalmente pesados</span>
+        </div>
+        <div class="card-item">
+          <div class="card-dot"></div>
+          <span>Checklist de emergencia emocional cuando todo se siente demasiado</span>
+        </div>
+      </div>
+      <span class="card-tag">🧠 Basado en evidencia · No es terapia · No promete milagros</span>
+    </div>
+  </div>
+</section>
+
+<!-- DOLOR -->
+<section class="dolor">
+  <div class="dolor-grid">
+    <div>
+      <p class="section-label">El problema real</p>
+      <h2>Sabes <em>perfectamente</em> lo que te pasa.<br>Y aun así no puedes parar.</h2>
+      <p>Has leído sobre ansiedad. Conoces el cortisol. Sabes que "hay que respirar." Entiendes la regulación del sistema nervioso en teoría.</p>
+      <p><strong>Y tu mente sigue sin apagarse.</strong></p>
+      <p>El problema no es falta de información. Es que nadie te ha dado herramientas que funcionen en tiempo real, cuando ya estás sobrepasada.</p>
+      <p>Eso es exactamente lo que hacemos aquí.</p>
+    </div>
+    <div class="dolor-cards">
+      <div class="dolor-card">"Leo todo sobre ansiedad y sigo exactamente igual."</div>
+      <div class="dolor-card">"Pienso tanto que me agoto a mí misma antes de empezar el día."</div>
+      <div class="dolor-card">"Sé que debería descansar. No puedo."</div>
+      <div class="dolor-card">"Las técnicas de mindfulness me parecen falsas pero tampoco tengo nada mejor."</div>
+      <div class="dolor-card">"Necesito algo que funcione sin tener que creer en nada."</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUCIÓN -->
+<section class="solucion">
+  <div class="reveal">
+    <p class="section-label">Nuestro enfoque</p>
+    <h2>Regulación emocional <em>práctica.</em><br>Sin psicología complicada.</h2>
+    <p class="solucion-sub">No prometemos transformación. Prometemos herramientas concretas que puedes usar hoy, sin necesitar creer en nada primero.</p>
+  </div>
+  <div class="pillares reveal">
+    <div class="pilar">
+      <div class="pilar-icon">🧬</div>
+      <h3>Basado en evidencia</h3>
+      <p>Cada herramienta tiene respaldo en psicología y neurociencia. No inventamos. Traducimos lo que funciona.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-icon">🌿</div>
+      <h3>Sin espiritualidad obligatoria</h3>
+      <p>No necesitas meditar. No necesitas "agradecer el proceso." Solo necesitas herramientas que funcionen en el mundo real.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-icon">🔄</div>
+      <h3>Aplicable hoy</h3>
+      <p>No en dos semanas, cuando hayas leído más. Hoy. Con lo que tienes. Donde estás. Así de concreto es esto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTO -->
+<section class="producto" id="producto">
+  <div class="producto-inner">
+    <div class="reveal">
+      <p class="section-label">Nuestro primer producto</p>
+      <h2>Modo Calma</h2>
+      <p class="producto-desc">Tu protocolo para días que se sienten demasiado. Un kit de entrada que no promete curarte — promete darte algo concreto para hacer cuando ya no puedes más.</p>
+
+      <div class="producto-includes">
+        <div class="include-item">
+          <div class="include-check">✓</div>
+          <span>Guía PDF de 25 páginas con herramientas de regulación aplicables de inmediato</span>
+        </div>
+        <div class="include-item">
+          <div class="include-check">✓</div>
+          <span>3 audios guiados para sobrecarga, agotamiento mental y cierre del día</span>
+        </div>
+        <div class="include-item">
+          <div class="include-check">✓</div>
+          <span>Ritual diario de 5 minutos (no de meditación, de regulación real)</span>
+        </div>
+        <div class="include-item">
+          <div class="include-check">✓</div>
+          <span>Checklist de emergencia para días mentalmente pesados</span>
+        </div>
+        <div class="include-item">
+          <div class="include-check">✓</div>
+          <span>Acceso inmediato y permanente. Tuyo para siempre.</span>
+        </div>
+      </div>
+
+      <p style="font-size:0.78rem; color:rgba(247,243,238,0.45); line-height:1.6;">
+        ⚠️ Este kit no reemplaza atención psicológica profesional. Es una herramienta de apoyo para manejo cotidiano. Si estás en crisis, por favor busca atención profesional.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="producto-price-box">
+        <p class="price-label">Precio de lanzamiento</p>
+        <p class="price"><sup>$</sup>17</p>
+        <p class="price-note">USD · Pago único · Acceso inmediato</p>
+        <a href="#espera" class="btn-light">Quiero acceso anticipado a $14</a>
+        <a href="#espera" class="btn-ghost">Avisarme cuando esté disponible</a>
+        <p class="price-disclaimer">Al entrar a la lista de espera recibirás primero el precio de acceso anticipado ($14 por 48 horas), luego el kit sube a su precio regular de $17.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIEN -->
+<section class="para-quien" id="para-quien">
+  <div class="para-quien-header reveal">
+    <p class="section-label">¿Es para mí?</p>
+    <h2>Esto es para ti si te <em>reconoces</em><br>en alguna de estas frases.</h2>
+  </div>
+
+  <div class="reconocimiento-grid reveal">
+    <div class="reconocimiento">
+      <span class="rec-emoji">🧠</span>
+      <p class="rec-text">Consumes mucho contenido de psicología pero sigues sintiéndote igual de ansiosa.</p>
+    </div>
+    <div class="reconocimiento">
+      <span class="rec-emoji">🌀</span>
+      <p class="rec-text">Piensas tanto que a veces no puedes ni empezar el día sin ya estar agotada.</p>
+    </div>
+    <div class="reconocimiento">
+      <span class="rec-emoji">⚡</span>
+      <p class="rec-text">Te sientes sobreestimulada con frecuencia — demasiado ruido, demasiadas cosas, demasiado todo.</p>
+    </div>
+    <div class="reconocimiento">
+      <span class="rec-emoji">🚫</span>
+      <p class="rec-text">Las cosas espirituales o el positivismo forzado te irritan pero tampoco tienes algo mejor.</p>
+    </div>
+    <div class="reconocimiento">
+      <span class="rec-emoji">🌿</span>
+      <p class="rec-text">Buscas herramientas suaves y realistas, no sermones ni promesas de vida perfecta.</p>
+    </div>
+    <div class="reconocimiento">
+      <span class="rec-emoji">🔬</span>
+      <p class="rec-text">Quieres que lo que usas tenga algún respaldo real, no solo "funciona porque yo lo digo."</p>
+    </div>
+  </div>
+
+  <div class="no-es reveal">
+    <h3>so.hum no es:</h3>
+    <div class="no-es-tags">
+      <span class="tag-no">mindfulness genérico</span>
+      <span class="tag-no">positivismo tóxico</span>
+      <span class="tag-no">espiritualidad obligatoria</span>
+      <span class="tag-no">terapia psicológica</span>
+      <span class="tag-no">promesas de "sanar del todo"</span>
+    </div>
+    <div style="height:1rem"></div>
+    <div class="no-es-tags">
+      <span class="tag-si">herramientas concretas ✓</span>
+      <span class="tag-si">basado en evidencia ✓</span>
+      <span class="tag-si">sin espiritualidad ✓</span>
+      <span class="tag-si">humano y cálido ✓</span>
+      <span class="tag-si">honesto sobre sus límites ✓</span>
+    </div>
+  </div>
+</section>
+
+<!-- LISTA ESPERA -->
+<section class="espera" id="espera">
+  <div class="espera-inner reveal">
+    <p class="section-label">Lista de espera</p>
+    <h2>Modo Calma está en camino.<br>Entra ahora y paga <em>menos.</em></h2>
+    <p>Las personas en lista de espera tendrán acceso anticipado a $14 USD (en lugar de $17). La ventana dura solo 48 horas desde el lanzamiento.</p>
+    <div class="form-group">
+      <input type="email" class="form-input" placeholder="tu@email.com">
+      <button class="btn-primary" onclick="handleSubmit(event)">Entrar</button>
+    </div>
+    <p class="form-note">Sin spam. Ni ahora, ni nunca. Solo te escribimos cuando el kit esté listo.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">so.hum</a>
+  <ul class="footer-links">
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Términos</a></li>
+    <li><a href="#">Contacto</a></li>
+  </ul>
+</footer>
+
+<div style="padding: 1.5rem 5%; background: var(--marfil);">
+  <p class="footer-note">
+    so.hum es un proyecto de educación emocional y bienestar. No somos psicólogos, no ofrecemos servicios terapéuticos y nada de lo que compartimos reemplaza atención profesional de salud mental.<br>
+    Si estás en crisis, por favor contacta a un profesional de salud mental o una línea de crisis en tu país.
+  </p>
+</div>
+
+<script>
+  // Intersection Observer para animaciones
+  const reveals = document.querySelectorAll('.reveal');
+  const dolorCards = document.querySelectorAll('.dolor-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.dolor-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), i * 120);
+        });
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const dolorSection = document.querySelector('.dolor-cards');
+  if (dolorSection) cardObserver.observe(dolorSection);
+
+  // Formulario
+  function handleSubmit(e) {
+    e.preventDefault();
+    const input = document.querySelector('.form-input');
+    const btn = e.target;
+    const email = input.value.trim();
+
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#D9A38F';
+      input.placeholder = 'Escribe tu email aquí';
+      return;
+    }
+
+    btn.textContent = '¡Listo! 🌿';
+    btn.style.background = '#4a6362';
+    input.value = '';
+    input.placeholder = 'Te avisamos pronto';
+    input.disabled = true;
+    btn.disabled = true;
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 50
+      ? '0 2px 20px rgba(46,46,46,0.08)'
+      : 'none';
+  });
+</script>
+
+</body>
+</html>
